@@ -7,16 +7,9 @@ import java.nio.file.Paths;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.util.Scanner;
 
-/**
- *
- * @author MC
- * @version 12/01/23
- */
 public class GestioneFile {
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String[] args) {
         
         //1)LETTURA
