@@ -35,6 +35,7 @@ public class Lettore extends Thread{
     }
     
 
+    @Override
     public void run(){
         leggi();
     }
