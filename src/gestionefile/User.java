@@ -61,8 +61,8 @@ public class User implements Serializable {
 	out.defaultWriteObject();
   }
 
- // funzione che legge l'oggetto in un flusso di dati passato come parametro
-  private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    // funzione che legge l'oggetto in un flusso di dati passato come parametro
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
 	in.defaultReadObject();
   }
     
