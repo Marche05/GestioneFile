@@ -72,7 +72,7 @@ public class GestioneFile {
             String cognome = entrata.readUTF();
             String ruolo = entrata.readUTF();
 
-            // Display the read data
+            // Visualizza i dati letti
             System.out.println("Stampo i dati letti");
             System.out.println("ID: " + id);
             System.out.println("Nome: " + nome);
