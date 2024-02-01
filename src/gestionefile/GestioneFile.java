@@ -1,10 +1,7 @@
 package gestionefile;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,8 +14,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class GestioneFile {
 
@@ -28,8 +23,8 @@ public class GestioneFile {
         //1)LETTURA
         Lettore lettore = new Lettore("user.json");
         lettore.start();
-        //2)ELABORAZIONE
         
+        //2)ELABORAZIONE
         Scanner s = new Scanner(System.in);
 	
         System.out.print("Inserisci username: ");
@@ -54,57 +49,42 @@ public class GestioneFile {
             System.err.println("Errore in copia!");
         }
         
-        
-        try{
-            // nome file da scrivere
-            String file = "user.csv";            
-            int[] u = { 12, 8, 13, 29, 50 };
+        // utilizzo DataOutputStream per scivere il file
+        try (DataOutputStream uscita = new DataOutputStream(new FileOutputStream("user.csv"))) {
+            
+            // scrivo un intero (id) integer and strings to the file
+            uscita.writeInt(1);
+            // scrivo le stringhe (nome, cognome, ruolo)
+            uscita.writeUTF("name");
+            uscita.writeUTF("surname");
+            uscita.writeUTF("role");
 
-            // Oggetto per scrivere nel file
-            DataOutputStream uscita = new DataOutputStream(new BufferedOutputStream(
-                    new FileOutputStream(file)));
-            
-            
-            for (int i = 0; i < u.length; i ++) {
-                uscita.writeInt(u[i]);
-            }
-            
-            uscita.flush();
-            
-        }catch (IOException ex){ 
-            System.err.println("Errore in scrittura!");
+            System.out.println("Dati scritti in user.csv");
+        } catch (IOException e) {
+            System.out.println("Errore in scrittura dati in user.csv");
         }
         
-        try{
-            // nome file da leggere
-            String filelettura = "user.json";            
+        // utilizzo DataInputStream per leggere il file        
+        try (DataInputStream entrata = new DataInputStream(new FileInputStream("user.csv"))) {
+            // leggo l'intero (id) e le stringhe
+            int id = entrata.readInt();
+            String nome = entrata.readUTF();
+            String cognome = entrata.readUTF();
+            String ruolo = entrata.readUTF();
+
+            // Display the read data
+            System.out.println("Stampo i dati letti");
+            System.out.println("ID: " + id);
+            System.out.println("Nome: " + nome);
+            System.out.println("Cognome: " + cognome);
+            System.out.println("Ruolo: " + ruolo);
             
-            String id;
-            String nome;
-            String cognome;
-            String ruolo;
-            
-            // oggetto per scrivere nel file
-            DataInputStream in = new DataInputStream(new
-                    BufferedInputStream(new FileInputStream(filelettura)));
-            
-            /*
-            try {
-                while (true) {
-                    id = in.readUTF();
-                    System.out.println("id: %d "+ id);
-                }
-            } catch (EOFException e) {
-                 System.err.println("Errore in file!");
-            }
-               */  
-        
-        }catch (IOException ex){ 
-            System.err.println("Errore in scrittura!");
+        } catch (IOException e) {
+            System.out.println("Errore in lettura dati in user.csv");
         }
         
         // file dove salvare gli oggetti serializzati
-        File f = new File("dati.txt");
+        File f = new File("dati");
         
         // creazione utente
 	User matteo = new User(1, "matteo", "marchesini", "studente");
