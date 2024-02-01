@@ -52,7 +52,7 @@ public class GestioneFile {
         // utilizzo DataOutputStream per scivere il file
         try (DataOutputStream uscita = new DataOutputStream(new FileOutputStream("user.csv"))) {
             
-            // scrivo un intero (id) integer and strings to the file
+            // scrivo un intero (id) e le stringhe nel file
             uscita.writeInt(1);
             // scrivo le stringhe (nome, cognome, ruolo)
             uscita.writeUTF("name");
